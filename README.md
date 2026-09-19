@@ -116,16 +116,6 @@ flowchart LR
 
 ## 🎬 Demo
 
-> 🎥 *Add a GIF or screen recording of the login → dashboard → drill-down flow here — this is the single highest-impact thing you can add to this README.*
-
-<div align="center">
-
-| Access Terminal (Login) | Precursor Dashboard |
-|---|---|
-| ![login screenshot placeholder](#) | ![dashboard screenshot placeholder](#) |
-
-</div>
-
 **Try it yourself** — the demo uses a role selector instead of real accounts:
 ```
 Email:    anything@oil-india.com
