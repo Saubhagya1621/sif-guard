@@ -1,0 +1,50 @@
+/* Fixed hairline blueprint grid — 1px lines every 40px, ~6% opacity. */
+.login-bg-grid {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(42, 50, 44, 0.06) 0px, rgba(42, 50, 44, 0.06) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(42, 50, 44, 0.06) 0px, rgba(42, 50, 44, 0.06) 1px, transparent 1px, transparent 40px);
+}
+
+/* Scan-line: pure CSS keyframe animation, drifts top -> bottom -> top. */
+.login-bg-scanline {
+  background-color: rgba(62, 213, 152, 0.2);
+  box-shadow: 0 0 14px 2px rgba(62, 213, 152, 0.2);
+  animation: login-scanline 13s linear infinite alternate;
+}
+
+@keyframes login-scanline {
+  from {
+    top: 0%;
+  }
+  to {
+    top: 100%;
+  }
+}
+
+/* Radar ping — soft expanding, fading ring centered behind the form. */
+.login-bg-radar-ring {
+  width: 320px;
+  height: 320px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(62, 213, 152, 0.08) 0%, rgba(62, 213, 152, 0) 70%);
+  animation: login-radar-pulse 6s ease-out infinite;
+}
+
+@keyframes login-radar-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-bg-scanline,
+  .login-bg-radar-ring {
+    animation: none;
+    opacity: 0;
+  }
+}
