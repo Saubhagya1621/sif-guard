@@ -1,0 +1,115 @@
+text,classification,potential_severity,rules,barrier_failure_type,activity,location
+"At Well pad 3, found contractor worker replacing the transfer pump coupling with the MCC still live and no isolation tag. Area in-charge informed.",SIF,fatal,energy_isolation,isolation,Pump maintenance,Well pad 3
+Found rigger replacing the booster pump coupling with the MCC still live and no isolation tag. Nobody was hurt.,SIF,fatal,energy_isolation,isolation,Pump maintenance,Well pad 7
+Found pumpman replacing the centrifugal pump coupling with the MCC still live and no isolation tag. Job was stopped and the crew was counselled.,SIF,fatal,energy_isolation,isolation,Pump maintenance,Compressor station
+Found crew member replacing the crude oil pump coupling with the MCC still live and no isolation tag,SIF,fatal,energy_isolation,isolation,Pump maintenance,EPS Baghjan
+"At Workshop, isolation certificate for the crude oil pump was filled late but the lock was in place throughout.",NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Workshop
+"During the night shift, isolation certificate for the crude oil pump was filled late but the lock was in place throughout. Area in-charge informed.",NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Pump house
+"During the night shift, isolation certificate for the centrifugal pump was filled late but the lock was in place throughout. Area in-charge informed.",NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Rig DJN-12
+"During the night shift, isolation certificate for the water injection pump was filled late but the lock was in place throughout.",NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Well pad 3
+"During the night shift, isolation certificate for the transfer pump was filled late but the lock was in place throughout. Corrective action raised in the HSSE portal.",NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Rig MRN-5
+Near miss reported: isolation certificate for the transfer pump was filled late but the lock was in place throughout. Area in-charge informed.,NON_SIF,minor,energy_isolation,procedure,Pump maintenance,Compressor station
+The BOP stack slipped from the shackle during lifting and dropped a metre from helper.,SIF,fatal,safe_mechanical_lifting|line_of_fire,equipment,Crane lift,Well pad 11
+The casing joints slipped from the shackle during lifting and dropped a metre from trainee. Nobody was hurt.,SIF,fatal,safe_mechanical_lifting|line_of_fire,equipment,Crane lift,Well pad 11
+The drill pipe bundle slipped from the shackle during lifting and dropped a metre from rigger Job was stopped and the crew was counselled,SIF,fatal,safe_mechanical_lifting|line_of_fire,equipment,Crane lift,OCS-1
+"During the night shift, the mud pump module slipped from the shackle during lifting and dropped a metre from derrickman.",SIF,fatal,safe_mechanical_lifting|line_of_fire,equipment,Crane lift,Compressor station
+"At Pump house, colour code on two unused slings had expired; slings removed from service. Reported by the shift supervisor.",NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,Pump house
+Near miss reported: colour code on two uused slings had expired sligns removed from service,NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,OCS-1
+Observation: colour code on two unused slings had expired; slings removed from service. Reported by the shift supervisor.,NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,Well pad 7
+"At OCS-1, colour code on two unused slings had expired; slings removed from service. Job was stopped and the crew was counselled.",NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,OCS-1
+Near miss reported: colour code on two unused slings had expired; slings removed from service. Area in-charge informed.,NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,EPS Baghjan
+Near miss reported: clour code on two unused slings had expired; slings removed from service. Reported by the shhift supervisor.,NON_SIF,minor,safe_mechanical_lifting,equipment,Crane lift,Well pad 11
+Electrician continued hot work on the heater treater inside the hazardous zone after the permit had expired.,SIF,fatal,hot_work|work_authorisation,procedure,Hot work,Workshop
+Electrician continued hot work on the separator inside the hazardous zone after the permit had expired. Corrective action raised in the HSSE portal.,SIF,fatal,hot_work|work_authorisation,procedure,Hot work,Workshop
+Near miss reported: trainee continued hot work on the crude oil tank inside the hazardous zone after the permit had expired. Corrective action raised in the HSSE portal.,SIF,fatal,hot_work|work_authorisation,procedure,Hot work,OCS-1
+"During the night shift, trainee continued hot work on the heater treater inside the hazardous zone after the permit had expired.",SIF,fatal,hot_work|work_authorisation,procedure,Hot work,Pump house
+"At Pump house, fire watch log sheet not signed at end of shift; hot work on the flare line had been completed safely. Corrective action raised in the HSSE portal.",NON_SIF,minor,hot_work,procedure,Hot work,Pump house
+fire watch log sheet not signeed at end of shift; hot work on the separator had been completed safely. nobody was hurt.,NON_SIF,minor,hot_work,procedure,Hot work,Workshop
+"During the night shift, fire watch log sheet not signed at end of shift; hot work on the separator had been completed safely.",NON_SIF,minor,hot_work,procedure,Hot work,Tank farm
+At GGS-2 fire watch log sheet not signed at end of shift hot work on the flare line had been completed safely Job was stopped and the crew was counselled,NON_SIF,minor,hot_work,procedure,Hot work,GGS-2
+Observation: fire watch log sheet not signed at end of shift; hot work on the crude oil tank had been completed safely. Reported by the shift supervisor.,NON_SIF,minor,hot_work,procedure,Hot work,Rig MRN-5
+Fire watch log sheet not signed at end of shift; hot work on the flare line had been completed safely.,NON_SIF,minor,hot_work,procedure,Hot work,Field road
+Contractor worked inside the sludge tank with no confined space permit and the ventilation fan switched off. Nobody was hurt.,SIF,fatal,confined_space|work_authorisation,procedure,Confined space entry,Jaisalmer camp
+During routine inspection it was observed that contractor worked inside the knockout drum with no confined space permit and the ventilation fan switched off. Reported by the shift supervisor.,SIF,fatal,confined_space|work_authorisation,procedure,Confined space entry,GGS-4
+"At EPS Baghjan, contractor worked inside the separator vessel with no confined space permit and the ventilation fan switched off.",SIF,fatal,confined_space|work_authorisation,procedure,Confined space entry,EPS Baghjan
+observation: contractor worked inside the knockout drum with no confined space peermit and the ventilation fan switched off area in-charge informed,SIF,fatal,confined_space|work_authorisation,procedure,Confined space entry,Rig MRN-5
+"During the night shift, entry log for the mud tank had a missing exit time; all workers were accounted for. Nobody was hurt.",NON_SIF,minor,confined_space,procedure,Confined space entry,Workshop
+during routne inspection it was observed that entry log for the knockout drum had a missig exit time; all workers were accounted for. nobody was hurt.,NON_SIF,minor,confined_space,procedure,Confined space entry,Well pad 3
+Entry log for the mud tank had a missing exit time; all workers were accounted for.,NON_SIF,minor,confined_space,procedure,Confined space entry,Rig MRN-5
+Entry log for the sludge tank had a missing exit time; all workers were accounted for. Nobody was hurt.,NON_SIF,minor,confined_space,procedure,Confined space entry,Tank farm
+Entry log for the separator vessel had a missing exit time all workers were accounted for Nobody was hurt,NON_SIF,minor,confined_space,procedure,Confined space entry,Field road
+Entry log for the separator vesel had a missing exit time all workers were accounted for,NON_SIF,minor,confined_space,procedure,Confined space entry,Field road
+"at eps baghjan, spanner dropped from the pipe rack and landed next to team working below. job was stopped and the crew was counselled.",SIF,fatal,working_at_height|line_of_fire,procedure,Work at height,EPS Baghjan
+Spanner dropped from the scaffold and landed next to workers working below. Job was stopped and the crew was counselled.,SIF,fatal,working_at_height|line_of_fire,procedure,Work at height,Well pad 7
+Near miss reported: spanner dropped from the monkey board and landed next to team working below. Area in-charge informed.,SIF,fatal,working_at_height|line_of_fire,procedure,Work at height,GGS-4
+"At GGS-2, spanner dropped from the scaffold and landed next to team working below. Nobody was hurt.",SIF,fatal,working_at_height|line_of_fire,procedure,Work at height,GGS-2
+Scaffold tag near the pipe rack not updated after daily inspection; scaffold found in good condition. Nobody was hurt.,NON_SIF,minor,working_at_height,procedure,Work at height,Well pad 7
+"During the night shift, scaffold tag near the scaffold not updated after daily inspection; scaffold noticed in good condition. Area in-charge informed.",NON_SIF,minor,working_at_height,procedure,Work at height,Well pad 7
+Near miss reported: scaffold tag next to the pipe rack not updated after daily inspection; scaffold observed in good condition. Job was stopped and the crew was counselled.,NON_SIF,minor,working_at_height,procedure,Work at height,Rig DJN-12
+Scaffold tag near the derrick not updated after daily inspection; scaffold found in good condition.,NON_SIF,minor,working_at_height,procedure,Work at height,Compressor station
+Observation: scaffold tag next to the tank roof not updatd after daily inspection; scaffold found in good condition. Nobody was hurt.,NON_SIF,minor,working_at_height,procedure,Work at height,Tank farm
+"During the night shift, scaffold tag close to the derrick not updated after daily inspection; scaffold found in good condition. Area in-charge informed.",NON_SIF,minor,working_at_height,procedure,Work at height,Compressor station
+The crane truck was driven at night on the field road with no headlights working.,SIF,fatal,driving,equipment,Vehicle movement,Field road
+Near miss reported: the crew bus was driven at night on the field road with no headlights working. Nobody was hurt.,SIF,fatal,driving,equipment,Vehicle movement,Jaisalmer camp
+The trailer was driven at night on the field road with no headlights working. Nobody was hurt.,SIF,fatal,driving,equipment,Vehicle movement,Rig MRN-5
+"During the night shift, the trailer was driven at night on the field road with no headlights working. Corrective action raised in the HSSE portal.",SIF,fatal,driving,equipment,Vehicle movement,Rig DJN-12
+"Observation: seat belt reminder of the trailer not working, reported to the transport section.",NON_SIF,minor,driving,equipment,Vehicle movement,Jaisalmer camp
+"Seat belt reminder of the crew bus not working, reported to the transport section. Job was stopped and the crew was counselled.",NON_SIF,minor,driving,equipment,Vehicle movement,Tank farm
+"Near miss reported: seat belt reminder of the crane truck not working, reported to the transport section.",NON_SIF,minor,driving,equipment,Vehicle movement,Compressor station
+"seat belt reminder of the tanker not working, reported to the transport section. corrective action raised in the hsse portal.",NON_SIF,minor,driving,equipment,Vehicle movement,Well pad 11
+"Seat belt reminder of the trailer not working, reported to the transport section. Corrective action raised in the HSSE portal.",NON_SIF,minor,driving,equipment,Vehicle movement,Pump house
+"Near miss reported: seat belt reminder of the pickup not working, reported to the transport section. Reported by the shift supervisor.",NON_SIF,minor,driving,equipment,Vehicle movement,Jaisalmer camp
+"At Field road, relief valvve isolation on the ESP panel found closed during normal operation. Nobody was hurt.",SIF,fatal,bypassing_safety_controls|energy_isolation,isolation,Process operation,Field road
+Relief valve isolation on the heater treater found closed during normal operation. Nobody was hurt.,SIF,fatal,bypassing_safety_controls|energy_isolation,isolation,Process operation,Compressor station
+"At Tank farm, relief valve isolation on the water injection pump observed closed during normal operation. Corrective action raised in the HSSE portal.",SIF,fatal,bypassing_safety_controls|energy_isolation,isolation,Process operation,Tank farm
+"At EPS Baghjan, relief valve isolation on the water injection pump noticed closed during normal operation. Job was stopped and the crew was counselled.",SIF,fatal,bypassing_safety_controls|energy_isolation,isolation,Process operation,EPS Baghjan
+Alarm on the heater treater panel acknowledged late by the optr; process remained stable. Corrective action raised in the HSSE portal.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,GGS-4
+observation: alarm on the gas separator panel acknowledged late by the optr; process remained stable. nobody was hurt.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,GGS-2
+Alarm on the heater treater panel acknowledged late by the operator; process remained stable. Nobody was hurt.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,Tank farm
+Alarm on the gas separator panel acknowledged late by the operator; process remained stable.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,Rig DJN-12
+During routine inspection it was observed that alarm on the ESP panel pannel acknowledged late by the optr; pocess remained stable. Reported by the shift supervisor.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,Jaisalmer camp
+Near miss reported: alarm on the water injection pump panel acknowledged late by the operator; process remained stable. Area in-charge informed.,NON_SIF,minor,bypassing_safety_controls,supervision,Process operation,Tank farm
+Pipe rolled off the rack near the flowline and pinned electrician's leg against the catwalk. Corrective action raised in the HSSE portal.,SIF,serious,line_of_fire,equipment,Well testing,GGS-2
+"At Rig MRN-5, pipe rolled off the rack next to the wellhead and pinned fitter's leg against the catwalk.",SIF,serious,line_of_fire,equipment,Well testing,Rig MRN-5
+Pipe rolled off the rack close to the flowline and pinned fitter's leg against the catwalk.,SIF,serious,line_of_fire,equipment,Well testing,Compressor station
+"At Compressor station, pipe rolled off the rack near the test separator and pinned derrickman's leg against the catwalk. Area in-charge informed.",SIF,serious,line_of_fire,equipment,Well testing,Compressor station
+"During the night shift, bleed-off line of the flowline was not labelled; the line was alerady depressurised.",NON_SIF,minor,line_of_fire,procedure,Well testing,Tank farm
+"At Field road, bleed-off line of the high-pressure hose was not labelled; the line was already depressurised. Job was stopped and the crew was counselled.",NON_SIF,minor,line_of_fire,procedure,Well testing,Field road
+Bleed-off line of the test separator was not labelled; the line was alreay depressurised. Job was stoped and the crew was counselled.,NON_SIF,minor,line_of_fire,procedure,Well testing,GGS-2
+"During the night shift, bleed-off line of the test separator was not labelled; the line was already depressurised. Nobody was hurt.",NON_SIF,minor,line_of_fire,procedure,Well testing,OCS-1
+bleed-off line of the floline was not labelled; the line was alraedy depressurised. area in-charge informed.,NON_SIF,minor,line_of_fire,procedure,Well testing,GGS-4
+During routine inspection it was observed that bleed-off line of the flowline was not labelled; the line was already depressurised. Reported by the shift supervisor.,NON_SIF,minor,line_of_fire,procedure,Well testing,Tank farm
+Near miss reported: derrickman energised the lighting panel while another crew still held the permit on it. Corrective action raised in the HSSE portal.,SIF,fatal,work_authorisation|energy_isolation,procedure,Electrical work,Jaisalmer camp
+"at pump house, roustabout energised the distribution board while another workers stlil held the permit on it. area in-charge informed.",SIF,fatal,work_authorisation|energy_isolation,procedure,Electrical work,Pump house
+At Pump house welder energised the ESP panel while another team still held the permit on it,SIF,fatal,work_authorisation|energy_isolation,procedure,Electrical work,Pump house
+Near miss reported: techniciaan energised the MCC panel while another crew stlil held the permit on it Corrective action raised in the HSSE portal,SIF,fatal,work_authorisation|energy_isolation,procedure,Electrical work,Field road
+Near miss reported: permit receiver's signature was faint; permit otherwise complete.,NON_SIF,minor,work_authorisation,procedure,Electrical work,Workshop
+During routine inspection it was observed that permit receiver's signature was faint; permit otherwise complete. Nobody was hurt.,NON_SIF,minor,work_authorisation,procedure,Electrical work,Rig DJN-12
+"At EPS Baghjan, permit receiver's signature was faint; permit otherwise complete.",NON_SIF,minor,work_authorisation,procedure,Electrical work,EPS Baghjan
+Permit receiver's signature was faint; permit otherwise complete. Nobody was hurt.,NON_SIF,minor,work_authorisation,procedure,Electrical work,Compressor station
+Near miss reported: permit receiver's signature was faint; permit otherwise complete. Job was stopped and the crew was counselled.,NON_SIF,minor,work_authorisation,procedure,Electrical work,GGS-4
+Observation: permit receiver's signature was faint; permit otherwise complete. Job was stopped and the crew was counselled.,NON_SIF,minor,work_authorisation,procedure,Electrical work,Jaisalmer camp
+"At Tank farm, dustbin overflowing near the conntrol room entrance. Nobody was hurt.",NON_SIF,minor,,none,Housekeeping,Tank farm
+"During the night shift, dustbin overflowing close to the control room entrance. Nobody was hurt.",NON_SIF,minor,,none,Housekeeping,Well pad 7
+Observation: dustbin overflowing near the control room entrance. Job was stopped and the crew was counselled.,NON_SIF,minor,,none,Housekeeping,Well pad 3
+"During the night shift, dustbin overflowing near the control room entrance.",NON_SIF,minor,,none,Housekeeping,Well pad 11
+"During the night shift, dustbin overflowing near the control room entrance. Area in-charge informed.",NON_SIF,minor,,none,Housekeeping,Field road
+"At Pump house, dustbin overflowing near the control room entrance.",NON_SIF,minor,,none,Housekeeping,Pump house
+"At Jaisalmer camp, dustbin overflowing near the control room entrance.",NON_SIF,minor,,none,Housekeeping,Jaisalmer camp
+During routine inspection it was observed that dustbin overflowing near the control room entrance. Reported by the shift supervisor.,NON_SIF,minor,,none,Housekeeping,OCS-1
+"At GGS-2, derrickman complained of mild headache due to heat, rested and returned to work. Reported by the shift supervisor.",NON_SIF,minor,,none,General operations,GGS-2
+"Derrickman complained of mild headache due to heat, rested and returned to work. Corrective action raised in the HSSE portal.",NON_SIF,minor,,none,General operations,Field road
+"Contractor worker complained of mild headache due to heat, rested and returned to work.",NON_SIF,minor,,none,General operations,Jaisalmer camp
+"During the night shift, pumpman complained of mild headache due to heat, rested and returned to work. Corrective action raised in the HSSE portal.",NON_SIF,minor,,none,General operations,OCS-1
+"Observation: contractor worker complained of mild headache due to heat, rested and returned to work. Nobody was hurt.",NON_SIF,minor,,none,General operations,Compressor station
+"At Pump house, electrician complained of mild headache due to heat, rested and returned to work. Nobody was hurt.",NON_SIF,minor,,none,General operations,Pump house
+"At EPS Baghjan, crew member complained of mild headache due to heat, rested and returned to work.",NON_SIF,minor,,none,General operations,EPS Baghjan
+"During the night shift, pumpman complained of mild headache due to heat, rested and returned to work. Area in-charge informed.",NON_SIF,minor,,none,General operations,Well pad 3
+"At Rig MRN-5, notice board at Rig MRN-5 has outdated emergency contact numbers. Nobody was hurt.",NON_SIF,minor,,procedure,General operations,Rig MRN-5
+Notice board at Field road has outdated emergency contact numbers. Area in-charge informed.,NON_SIF,minor,,procedure,General operations,Field road
+Notice board at Workshop has outdated emergency contact numbers.,NON_SIF,minor,,procedure,General operations,Workshop
+Observation: notice board at Jaisalmer camp has outdated emergency contact numbers. Corrective action raised in the HSSE portal.,NON_SIF,minor,,procedure,General operations,Jaisalmer camp
+during routine inspection it was observed that notice board at well pad 7 has outdated emergency contact numbers. area in-charge informed.,NON_SIF,minor,,procedure,General operations,Well pad 7
+Near miss reported: notice board at Well pad 3 has outdated emergency contact numbers. Corrective action raised in the HSSE portal.,NON_SIF,minor,,procedure,General operations,Well pad 3
+Observation: notice board at EPS Baghjan has outdated emergency contact numbers.,NON_SIF,minor,,procedure,General operations,EPS Baghjan
+"At Well pad 7, notice board at Well pad 7 has outdated emergency contact numbers. Area in-charge informed.",NON_SIF,minor,,procedure,General operations,Well pad 7
