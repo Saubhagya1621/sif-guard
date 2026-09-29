@@ -1,0 +1,41 @@
+{
+  "name": "sif-guard-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SIF-Guard Node/Express API (SIH26165, Oil India Limited)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "seed": "node seed.js",
+    "seed:reset": "node seed.js --reset",
+    "mock-ml": "node dev/mockMl.js",
+    "sample-csv": "node dev/makeSampleCsv.js",
+    "test": "jest --runInBand"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^2.0.0",
+    "pdfkit": "^0.16.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.3",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
+  },
+  "jest": { "testEnvironment": "node", "testTimeout": 120000 }
+}
