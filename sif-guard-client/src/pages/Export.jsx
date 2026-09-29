@@ -1,49 +1,93 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
+import { useToast } from "../context/ToastContext";
+import { exportReport } from "../api/reportsApi";
+import { USE_MOCK } from "../api/client";
+import { daysAgo, isoDay } from "../lib/format";
+import { ErrorState, Field, PageHeader, btnCls, btnPrimaryCls, inputCls } from "../components/ui";
+
+const RANGES = [
+  ["Last 7 days", 6],
+  ["Last 30 days", 29],
+  ["Last 90 days", 89],
+];
 
 export default function Export() {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [generated, setGenerated] = useState(false);
+  const toast = useToast();
+  const [from, setFrom] = useState(daysAgo(6));
+  const [to, setTo] = useState(isoDay());
+  const [format, setFormat] = useState("pdf");
+  const [state, setState] = useState({ busy: false, error: null, last: null });
 
-  function handleGenerate(e) {
+  async function handleGenerate(e) {
     e.preventDefault();
-    // Real endpoint: GET /api/export/report — returns a PDF/Excel stream.
-    setGenerated(true);
-    setTimeout(() => setGenerated(false), 3000);
+    if (from > to) {
+      setState({ busy: false, error: { code: "VALIDATION_ERROR", message: "From must be on or before To." }, last: null });
+      return;
+    }
+    setState({ busy: true, error: null, last: null });
+    try {
+      const name = await exportReport({ format, from, to });
+      setState({ busy: false, error: null, last: name });
+      toast.success(`Downloaded ${name}`);
+    } catch (error) {
+      setState({ busy: false, error, last: null });
+    }
   }
 
   return (
     <Layout>
-      <h1 className="text-xl font-medium mb-1">Intervention-priority export</h1>
-      <p className="text-text-muted text-sm mb-6">Generate the weekly SIF-priority report as PDF or Excel.</p>
+      <PageHeader title="Intervention-priority export" subtitle="Weekly list: sites ranked by SIF density, top recurring patterns and the highest-risk reports." />
 
       <form onSubmit={handleGenerate} className="panel p-5 max-w-md space-y-4">
-        <div>
-          <label className="block text-xs text-text-muted mb-1">From</label>
-          <input
-            type="date"
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-            className="w-full bg-surface-raised border border-border rounded-sm px-3 py-2 text-sm outline-none focus:border-signal-safe"
-          />
+        <div className="flex flex-wrap gap-2">
+          {RANGES.map(([label, n]) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => {
+                setFrom(daysAgo(n));
+                setTo(isoDay());
+              }}
+              className={btnCls}
+            >
+              {label}
+            </button>
+          ))}
         </div>
-        <div>
-          <label className="block text-xs text-text-muted mb-1">To</label>
-          <input
-            type="date"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-            className="w-full bg-surface-raised border border-border rounded-sm px-3 py-2 text-sm outline-none focus:border-signal-safe"
-          />
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="From">
+            <input type="date" required value={from} onChange={(e) => setFrom(e.target.value)} className={`${inputCls} w-full`} />
+          </Field>
+          <Field label="To">
+            <input type="date" required value={to} onChange={(e) => setTo(e.target.value)} className={`${inputCls} w-full`} />
+          </Field>
         </div>
-        <button
-          type="submit"
-          className="mono text-xs px-3 py-1.5 bg-signal-safe text-bg-base rounded-sm hover:opacity-90 transition-opacity"
-        >
-          Generate report
+        <fieldset>
+          <legend className="mono text-[11px] text-text-muted uppercase tracking-wide mb-2">Format</legend>
+          <div className="flex gap-2">
+            {[
+              ["pdf", "PDF"],
+              ["xlsx", "Excel"],
+            ].map(([value, label]) => (
+              <label
+                key={value}
+                className={`mono text-xs px-3 py-1.5 border rounded-sm cursor-pointer transition-colors ${
+                  format === value ? "border-signal-safe text-signal-safe" : "border-border text-text-muted hover:text-text-primary"
+                }`}
+              >
+                <input type="radio" name="format" value={value} checked={format === value} onChange={() => setFormat(value)} className="sr-only" />
+                {label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <button type="submit" disabled={state.busy} className={btnPrimaryCls}>
+          {state.busy ? "Generating…" : "Generate report"}
         </button>
-        {generated && <p className="mono text-xs text-signal-safe">Report generated — download will start shortly.</p>}
+        {state.last && <p className="mono text-xs text-signal-safe">Downloaded {state.last}</p>}
+        {state.error && <ErrorState error={state.error} />}
+        {USE_MOCK && <p className="mono text-[11px] text-text-muted">Demo mode: file export needs the live backend.</p>}
       </form>
     </Layout>
   );

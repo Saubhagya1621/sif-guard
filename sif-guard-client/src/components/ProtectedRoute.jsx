@@ -1,12 +1,22 @@
-import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
+import { FullScreenLoader } from "./ui";
 
-// Frontend-side gate only hides UI/redirects for UX — per the build spec,
-// role enforcement for real data must happen in Express middleware
-// (`requireRole([...])`) on every route, not here.
+// UX gate only: the real enforcement is requireRole + site scoping in the Express API.
 export default function ProtectedRoute({ roles, children }) {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
-  if (roles && !roles.includes(user.role)) return <Navigate to="/dashboard" replace />;
+  const { user, loading } = useAuth();
+  const toast = useToast();
+  const location = useLocation();
+  const denied = Boolean(user && roles && !roles.includes(user.role));
+
+  useEffect(() => {
+    if (denied) toast.error("Your role doesn't have access to that page.");
+  }, [denied, toast]);
+
+  if (loading) return <FullScreenLoader />;
+  if (!user) return <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />;
+  if (denied) return <Navigate to="/dashboard" replace />;
   return children;
 }

@@ -1,8 +1,4 @@
-// Demo fixtures in the exact Report shape of docs/API_CONTRACT.md §1 (generated; also exported to
-// docs/seed_reports.json, which the backend seeds from). Highlight offsets index into `text`.
-export { SITES } from "../lib/constants";
-
-export const REPORTS = [
+[
   {
     "id": "R-1042",
     "siteId": "duliajan",
@@ -422,13 +418,4 @@ export const REPORTS = [
     "review": null,
     "createdAt": "2026-08-21T05:36:00.000Z"
   }
-];
-
-// Demo accounts for mock mode (same credentials as the backend seed).
-export const MOCK_USERS = [
-  { id: "u1", name: "System Admin", email: "admin@sifguard.dev", password: "Admin@123", role: "admin", siteId: null, active: true },
-  { id: "u2", name: "A. Bora", email: "hse@sifguard.dev", password: "Hse@1234", role: "hse_officer", siteId: null, active: true },
-  { id: "u3", name: "P. Dutta", email: "manager@sifguard.dev", password: "Manager@123", role: "site_supervisor", siteId: "duliajan", active: true },
-  { id: "u4", name: "A. Sharma", email: "a.sharma@sifguard.dev", password: "Demo@1234", role: "hse_officer", siteId: null, active: true },
-  { id: "u5", name: "V. Singh", email: "v.singh@sifguard.dev", password: "Demo@1234", role: "site_supervisor", siteId: "jaisalmer", active: true },
-];
+]
