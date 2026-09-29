@@ -153,5 +153,6 @@ cd sif-guard-client; npm run build                    # production build check
 
 ## Team workflow
 
+
 Edit only your own folder, work on a branch, open a PR, get one review, and never push directly to `main`.
 `docs/API_CONTRACT.md` changes need group agreement first.
