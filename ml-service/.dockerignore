@@ -1,0 +1,6 @@
+models
+venv
+.venv
+__pycache__
+.pytest_cache
+data/corrections.jsonl
