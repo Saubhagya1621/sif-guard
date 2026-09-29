@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import LoginBackground from "../components/LoginBackground";
-
-const ROLES = [
-  { value: "hse_officer", label: "HSE Officer" },
-  { value: "site_supervisor", label: "Site Supervisor" },
-  { value: "admin", label: "Admin" },
-];
-
-// Any password containing "fail" demo-triggers the denied state, so a
-// reviewer can see both outcomes without needing a real backend.
-function willFail(password) {
-  return /fail/i.test(password);
-}
+import { USE_MOCK } from "../api/client";
+import { DEMO_CREDENTIALS, ROLE_LABELS } from "../lib/constants";
 
 // Types a string out character-by-character (not a fade) inside a <span>,
 // finishing instantly if the user prefers reduced motion.
@@ -24,10 +14,12 @@ function TypedLine({ text, color, speed = 18, onDone }) {
 
   useEffect(() => {
     if (reduceMotion) {
+      setShown(text);
       onDone?.();
-      return;
+      return undefined;
     }
     let i = 0;
+    setShown("");
     const interval = setInterval(() => {
       i += 1;
       setShown(text.slice(0, i));
@@ -50,65 +42,88 @@ function TypedLine({ text, color, speed = 18, onDone }) {
   );
 }
 
+function deniedText(err) {
+  if (!err) return "ACCESS DENIED — INVALID CREDENTIALS";
+  if (err.code === "NETWORK_ERROR") return "SERVER UNREACHABLE — IS THE BACKEND RUNNING?";
+  if (err.status === 403) return "ACCESS DENIED — ACCOUNT DEACTIVATED";
+  if (err.status === 429) return "TOO MANY ATTEMPTS — TRY AGAIN LATER";
+  if (err.status === 401 || err.status === 400) return "ACCESS DENIED — INVALID CREDENTIALS";
+  return `ACCESS DENIED — ${String(err.message || "ERROR").toUpperCase().slice(0, 40)}`;
+}
+
+const underline = {
+  style: { borderBottomColor: "var(--color-border)", borderBottomWidth: "1px" },
+  onFocus: (e) => (e.target.style.borderBottomColor = "var(--color-text-primary)"),
+  onBlur: (e) => (e.target.style.borderBottomColor = "var(--color-border)"),
+};
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("hse_officer");
-  const [status, setStatus] = useState("idle"); // idle | verifying | granted | denied
+  const [status, setStatus] = useState("idle"); // idle | verifying | granted-line2 | granted | denied
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuth();
+  const [grantedUser, setGrantedUser] = useState(null);
+  const [error, setError] = useState(null);
+  const pending = useRef(null);
+  const { user, loading, login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const reduceMotion = useReducedMotion();
+  const from = location.state?.from && location.state.from !== "/login" ? location.state.from : "/dashboard";
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (status === "verifying") return;
+    if (status !== "idle") return;
+    // Start the real request immediately; the typed "VERIFYING" line runs while it's in flight.
+    pending.current = login(email.trim(), password).then(
+      (u) => ({ ok: true, user: u }),
+      (err) => ({ ok: false, err }),
+    );
     setStatus("verifying");
   }
 
-  function handleVerifyDone() {
-    if (willFail(password)) {
-      setStatus("denied");
-    } else {
+  async function handleVerifyDone() {
+    const r = await pending.current;
+    if (r?.ok) {
+      setGrantedUser(r.user);
       setStatus("granted-line2");
+    } else {
+      setError(r?.err || null);
+      setStatus("denied");
     }
   }
 
   function handleGrantedDone() {
     setStatus("granted");
-    const delay = reduceMotion ? 200 : 500;
-    setTimeout(() => {
-      login(role);
-      navigate(role === "site_supervisor" ? "/dashboard?site=duliajan" : "/dashboard");
-    }, delay);
+    setTimeout(() => navigate(from, { replace: true }), reduceMotion ? 200 : 500);
   }
 
   function retry() {
+    setError(null);
     setStatus("idle");
   }
 
-  const roleLabel = ROLES.find((r) => r.value === role)?.label.toUpperCase().replace(" ", "_") ?? "";
+  if (!loading && user && status === "idle") return <Navigate to={from} replace />;
+
+  const roleLabel = (ROLE_LABELS[grantedUser?.role] || "").toUpperCase().replace(" ", "_");
 
   return (
     <div className="min-h-screen w-full relative bg-bg-base text-text-primary">
       <LoginBackground />
 
-      {/* Single centered instrument panel — no split, no image panel. */}
       <div className="relative z-10 min-h-screen w-full flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-[420px] panel px-8 py-9">
-          <div
-            className="mono text-sm mb-6 tracking-wide"
-            style={{ color: "var(--color-text-primary)" }}
-          >
+          <div className="mono text-sm mb-6 tracking-wide" style={{ color: "var(--color-text-primary)" }}>
             SIF-GUARD
           </div>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block mono text-xs tracking-wide text-text-muted mb-2 uppercase">
+              <label htmlFor="email" className="block mono text-xs tracking-wide text-text-muted mb-2 uppercase">
                 Email
               </label>
               <input
+                id="email"
                 type="email"
                 required
                 value={email}
@@ -116,33 +131,29 @@ export default function Login() {
                 disabled={status !== "idle"}
                 autoComplete="username"
                 className="w-full bg-transparent border-0 border-b rounded-none px-0 py-2 text-sm outline-none transition-colors"
-                style={{ borderBottomColor: "var(--color-border)", borderBottomWidth: "1px" }}
-                onFocus={(e) => (e.target.style.borderBottomColor = "var(--color-text-primary)")}
-                onBlur={(e) => (e.target.style.borderBottomColor = "var(--color-border)")}
+                {...underline}
               />
             </div>
 
-            <div className="mb-4">
-              <label className="block mono text-xs tracking-wide text-text-muted mb-2 uppercase">
+            <div className="mb-6">
+              <label htmlFor="password" className="block mono text-xs tracking-wide text-text-muted mb-2 uppercase">
                 Password
               </label>
               <div className="relative">
                 <input
+                  id="password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={status !== "idle"}
                   autoComplete="current-password"
-                  className="w-full bg-transparent border-0 border-b rounded-none px-0 py-2 pr-8 text-sm outline-none transition-colors"
-                  style={{ borderBottomColor: "var(--color-border)", borderBottomWidth: "1px" }}
-                  onFocus={(e) => (e.target.style.borderBottomColor = "var(--color-text-primary)")}
-                  onBlur={(e) => (e.target.style.borderBottomColor = "var(--color-border)")}
+                  className="w-full bg-transparent border-0 border-b rounded-none px-0 py-2 pr-10 text-sm outline-none transition-colors"
+                  {...underline}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((s) => !s)}
-                  tabIndex={-1}
                   className="absolute right-0 top-1/2 -translate-y-1/2 mono text-xs text-text-muted hover:text-text-primary transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
@@ -151,28 +162,7 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="mb-5">
-              <label className="block mono text-xs tracking-wide text-text-muted mb-2 uppercase">
-                Role (demo only)
-              </label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                disabled={status !== "idle"}
-                className="w-full bg-transparent border-0 border-b rounded-none px-0 py-2 text-sm outline-none transition-colors appearance-none cursor-pointer"
-                style={{ borderBottomColor: "var(--color-border)", borderBottomWidth: "1px" }}
-                onFocus={(e) => (e.target.style.borderBottomColor = "var(--color-text-primary)")}
-                onBlur={(e) => (e.target.style.borderBottomColor = "var(--color-border)")}
-              >
-                {ROLES.map((r) => (
-                  <option key={r.value} value={r.value} className="bg-surface">
-                    {r.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="h-10 flex items-center">
+            <div className="min-h-10 flex items-center" aria-live="polite">
               <AnimatePresence mode="wait">
                 {status === "idle" && (
                   <motion.button
@@ -190,21 +180,13 @@ export default function Login() {
 
                 {status === "verifying" && (
                   <motion.div key="verifying" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <TypedLine
-                      text="VERIFYING CREDENTIALS..."
-                      color="var(--color-text-muted)"
-                      onDone={handleVerifyDone}
-                    />
+                    <TypedLine text="VERIFYING CREDENTIALS..." color="var(--color-text-muted)" onDone={handleVerifyDone} />
                   </motion.div>
                 )}
 
                 {status === "granted-line2" && (
                   <motion.div key="granted-line2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <TypedLine
-                      text={`ACCESS GRANTED — ${roleLabel}`}
-                      color="var(--color-signal-safe)"
-                      onDone={handleGrantedDone}
-                    />
+                    <TypedLine text={`ACCESS GRANTED — ${roleLabel}`} color="var(--color-signal-safe)" onDone={handleGrantedDone} />
                   </motion.div>
                 )}
 
@@ -225,16 +207,36 @@ export default function Login() {
                     animate={{ opacity: 1 }}
                     className="mono text-xs tracking-wide text-left"
                   >
-                    <TypedLine
-                      text="ACCESS DENIED — INVALID CREDENTIALS"
-                      color="var(--color-signal-danger)"
-                    />
+                    <TypedLine text={deniedText(error)} color="var(--color-signal-danger)" />
                     <span className="block text-text-muted mt-1 text-[11px]">tap to retry</span>
                   </motion.button>
                 )}
               </AnimatePresence>
             </div>
           </form>
+
+          {USE_MOCK && (
+            <div className="mt-6 border-t border-border pt-4">
+              <div className="mono text-[11px] text-text-muted mb-2 uppercase tracking-wide">Demo accounts · tap to fill</div>
+              <div className="space-y-1.5">
+                {DEMO_CREDENTIALS.map((c) => (
+                  <button
+                    key={c.email}
+                    type="button"
+                    disabled={status !== "idle"}
+                    onClick={() => {
+                      setEmail(c.email);
+                      setPassword(c.password);
+                    }}
+                    className="w-full flex justify-between gap-3 mono text-[11px] text-text-muted hover:text-signal-safe transition-colors text-left disabled:opacity-50"
+                  >
+                    <span className="truncate">{c.email}</span>
+                    <span className="shrink-0">{ROLE_LABELS[c.role]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <p className="mono text-[11px] text-text-muted mt-6 leading-relaxed">
             Accounts are provisioned by an admin. No self-signup on this terminal.
