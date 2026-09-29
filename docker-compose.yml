@@ -1,0 +1,65 @@
+# docker compose up --build   → mongo + ml-service + server + client
+# Before Dev A's ml-service is merged, use the mock instead (see README):
+#   DOCKER_ML_SERVICE_URL=http://mock-ml:8000 docker compose up --build mongo mock-ml server client
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo_data:/data/db]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build: ./ml-service
+    ports: ["8000:8000"]
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 5
+
+  mock-ml:
+    build: ./server
+    command: ["node", "dev/mockMl.js"]
+    profiles: ["mock"]
+    ports: ["8000:8000"]
+
+  server:
+    build: ./server
+    ports: ["5000:5000"]
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/sifguard
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-root-env}
+      CLIENT_ORIGIN: ${CLIENT_ORIGIN:-http://localhost:5173}
+      ML_SERVICE_URL: ${DOCKER_ML_SERVICE_URL:-http://ml-service:8000}
+      NOTIFY_THRESHOLD: ${NOTIFY_THRESHOLD:-0.85}
+      COOKIE_SAMESITE: ${COOKIE_SAMESITE:-lax}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes:
+      - ./docs:/docs:ro   # seed reads /docs/seed_reports.json
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # Runs the Vite dev server from a stock Node image, so nothing needs adding inside sif-guard-client/.
+  client:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    ports: ["5173:5173"]
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:5000/api}
+      VITE_USE_MOCK: ${VITE_USE_MOCK:-false}
+    volumes:
+      - ./sif-guard-client:/app
+      - client_node_modules:/app/node_modules
+    depends_on: [server]
+
+volumes:
+  mongo_data:
+  client_node_modules:

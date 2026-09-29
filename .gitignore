@@ -6,3 +6,6 @@ __pycache__
 models/
 *.log
 .DS_Store
+
+server/jar
+server/list.pdf
